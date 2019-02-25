@@ -55,6 +55,4 @@ public class ShiroConfig {
 		securityManager.setRealm(shiroRealm);
 		return securityManager;
 	}
-	
-	
 }
