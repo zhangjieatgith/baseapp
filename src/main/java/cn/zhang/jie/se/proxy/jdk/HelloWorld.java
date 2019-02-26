@@ -1,4 +1,4 @@
-package cn.zhang.jie.se.proxy;
+package cn.zhang.jie.se.proxy.jdk;
 
 public interface HelloWorld {
 

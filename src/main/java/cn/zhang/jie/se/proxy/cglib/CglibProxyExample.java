@@ -1,7 +1,9 @@
-package cn.zhang.jie.se.proxy;
+package cn.zhang.jie.se.proxy.cglib;
 
 import java.lang.reflect.Method;
 
+import cn.zhang.jie.se.proxy.jdk.HelloWorldImpl;
+import cn.zhang.jie.se.proxy.jdk.SecondMapperImpl;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
