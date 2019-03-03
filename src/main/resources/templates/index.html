@@ -1,10 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Full Layout - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="/easyui1.7.4/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="/easyui1.7.4/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="/easyui1.7.4/demo.css">
+	<link rel="stylesheet" type="text/css" href="/easyui1.7.4/sidemenu_style.css">
+	<script type="text/javascript" src="/easyui1.7.4/jquery.min.js"></script>
+	<script type="text/javascript" src="/easyui1.7.4/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="/others/md5.js"></script>
+	<script type="text/javascript" th:inline="javascript">
+		var userAuthInfo = [[${userAuthInfo}]];
+	</script>
+	<style type="text/css">
+		.tree-icon{
+			display: none;
+		}
+	</style>
 </head>
-<body>
+<body class="easyui-layout">
+	<div data-options="region:'north',border:false" style="height:90px;background:#B3DFDA;padding:10px">
+		<a href="/home/logout">logout</a>
+	</div>
+	<div data-options="region:'west',split:true" style="width:220px;padding:0px;">
+		<div id="idSidemenu" style="width:100%;height:100%;" data-options="multiple:false"></div>
+	</div>
+	<div data-options="region:'center'">
+		<div id="idCenterTabs" class="easyui-tabs" style="width:100%;height:100%;">
+			<!-- <div title="About" style="padding:10px">
+				<p>The tabs has a width of 100%.</p>
+			</div>
+			<div title="Title2"></div>
+			<div title="Title3"></div> -->
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="/pagejs/index.js"></script>
+<!-- <body>
 	<h1>index.html1</h1>
 	
 	<table>
@@ -19,5 +52,5 @@
 	
 	
 	<a href="/home/logout">logout</a>
-</body>
+</body> -->
 </html>

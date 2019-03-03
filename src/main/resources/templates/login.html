@@ -3,16 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="/easyui1.7.4/themes/default/easyui.css" />
+	<link rel="stylesheet" type="text/css" href="/easyui1.7.4/themes/icon.css"/>
+	<link rel="stylesheet" type="text/css" href="/easyui1.7.4/demo.css"/>
+	<link rel="stylesheet" type="text/css" href="/easyui1.7.4/sidemenu_style.css"/>
+	<script type="text/javascript" src="/easyui1.7.4/jquery.min.js"></script>
+	<script type="text/javascript" src="/easyui1.7.4/jquery.easyui.min.js"></script>
+	<!-- <script type="text/javascript" src="/others/md5.js"></script> -->
+	<script type="text/javascript" src="/others/md5.js"></script>
 </head>
 <body>
 	<h1>login.html</h1>
 	<div style="border: 1px solid red;" th:text="${msg}"></div>
 	<hr>
-	<form action="/home/doLogin" method="post">
-		username:<input type="text" name="username"/><br/>
-		password:<input type="password" name="password"/><br>
-		remember me ? <input type="checkbox" name="rememberme"/><br>
+	<!-- <form action="/home/doLogin" method="post">
 		<input type="submit" value="submit"/>
-	</form>
+	</form> -->
+		username:<input id="idLoginUsername" type="text" name="username"/><br/>
+		password:<input id="idLoginPassword" type="password" name="password"/><br>
+		remember me ? <input id="idLoginRememberme" type="checkbox" name="rememberme"/><br>
+		<input type="button"  onclick="submitLogin()" value="submit"/>
+	<script type="text/javascript">
+		function submitLogin(){
+			console.log('submitLogin');
+			$.ajax({
+				url : '/home/doLogin',
+				method : 'post',
+				data : {
+					username:$('#idLoginUsername').val(),
+					password:hex_md5($('#idLoginPassword').val()),
+					rememberme : $('#idLoginRememberme').prop('checked') ? 'on' : 'off'
+				},
+				async:false,
+				success:function(e){
+					if(e['code']==200){
+						window.location.href=e['msg'];
+					}else{
+						alert(e['msg']);
+					}
+				}
+			});	
+		}
+	</script>
 </body>
 </html>

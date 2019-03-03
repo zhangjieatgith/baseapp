@@ -30,4 +30,24 @@ public class TestController {
 //		return testService.getRoleById(1);
 		return testService.insertOneUser(user);
 	}
+	
+	@RequestMapping("/testHtml")
+	public String testHtml() {
+		return "test";
+	}
+	
+	@RequestMapping("/sample1")
+	public String sampleHtml1() {
+		return "sample1";
+	}
+	
+	@RequestMapping("/sample2")
+	public String sampleHtml2() {
+		return "sample2";
+	}
+	
+	@RequestMapping("/sample3")
+	public String sampleHtml3() {
+		return "sample3";
+	}
 }

@@ -37,9 +37,11 @@ public class ShiroConfig {
 		//anon表示可以匿名访问，authc表示需要认证通过才可以访问
 		filterChainDefinitionMap.put("/home/doLogin", "anon");
 		filterChainDefinitionMap.put("/js/**", "anon");
+		filterChainDefinitionMap.put("/pagejs/**", "anon");
 		filterChainDefinitionMap.put("/css/**", "anon");
 		filterChainDefinitionMap.put("/img/**", "anon");
-		filterChainDefinitionMap.put("/easyui/**", "anon");
+		filterChainDefinitionMap.put("/others/**", "anon");
+		filterChainDefinitionMap.put("/easyui1.7.4/**", "anon");
 		filterChainDefinitionMap.put("/home/logout", "logout");
 		//将需要认证的放在最下面
 		filterChainDefinitionMap.put("/home/index", "user");

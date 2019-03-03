@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import cn.zhang.jie.beans.User;
 import cn.zhang.jie.mapper.UserMapper;
+import cn.zhang.jie.service.UserInfoService;
 import cn.zhang.jie.utils.Md5Util;
 
 
@@ -63,9 +64,9 @@ public class MyShiroRealm extends AuthorizingRealm{
 		if(user == null) {
 			throw new RuntimeException("用户不存在");
 		}
-//        if (!Md5Util.md5(password + user.getUserName()).equals(null)) {
-//            throw new RuntimeException("密码错误!");
-//        }
+        if (!Md5Util.md5(user.getUserName() + password).equals(user.getPassword())) {
+            throw new RuntimeException("密码错误!");
+        }
         //读取用户的URL和角色
         User shiroUser = new User();
         shiroUser.setId(user.getId());

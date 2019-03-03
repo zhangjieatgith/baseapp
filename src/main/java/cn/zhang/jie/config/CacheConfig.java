@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.core.RedisTemplate;
 
-@Configuration
+//@Configuration
 public class CacheConfig {
 	
-	@Bean(name="redisCacheManager")
+//	@Bean(name="redisCacheManager")
 	public CacheManager initRedisCacheManager(@Autowired RedisTemplate<String,Object> redisTemplate) {
 		RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
 		//设置超时时间为1分钟，单位为秒

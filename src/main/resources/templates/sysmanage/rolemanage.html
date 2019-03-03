@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<table id="idRoleManageGrid" class="easyui-datagrid" style="width:100%;height:100%;margin: 10px;"
+			data-options="
+				rownumbers:true,
+				singleSelect:true,
+				url:'/sysmanage/getAllRoles',
+				method:'get',
+				fitColumns:true,
+				scrollbarSize:0,
+				toolbar:'#roleManageBtnBar'">
+		<thead>
+			<tr>
+				<th data-options="field:'id',width:120,hidden:true">Item ID</th>
+				<th data-options="field:'roleName',width:100,align:'left'">角色名</th>
+				<th data-options="field:'setAuthBtn',width:60,fixed:true,align:'left',formatter:setAuthForRole">授权</th>
+			</tr>
+		</thead>
+	</table>
+	<div id="roleManageBtnBar" style="padding:5px 15px;">
+		<a href="#" class="easyui-linkbutton c1" style="width:70px">新增角色</a>
+		<a href="#" class="easyui-linkbutton c2" style="width:70px">修改角色</a>
+		<a href="#" class="easyui-linkbutton c3" style="width:70px">删除角色</a>
+		<a href="#" class="easyui-linkbutton c4" style="width:70px">角色授权</a>
+	</div>
+	
+	
+		<div id="showRoleAuths" class="easyui-dialog" title="权限列表" style="width:360px;height:500px;padding:10px"
+			data-options="
+				closed:true,
+				buttons: [{
+					text:'Ok',
+					handler:updateAuthOk
+				},{
+					text:'Cancel',
+					handler:function(){
+						alert('cancel');;
+					}
+				}]
+			">
+		<div class="easyui-panel" style="padding:5px;width: 100%;height: 100%;">
+			<ul id="showAuthForOneRoleByTree" class="easyui-tree" 
+			data-options="animate:true,checkbox:true"></ul><!-- url:'/sysmanage/getAuthsForOneRoleByTree',method:'get', -->
+		</div>
+	</div>
+</body>
+</html>

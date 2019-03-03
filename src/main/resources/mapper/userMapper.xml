@@ -14,6 +14,14 @@
 		select * from tbl_user where id = #{id}
 	</select>
 	
+	<update id="initUserPass" parameterType="cn.zhang.jie.beans.User">
+		UPDATE tbl_user SET `password` = #{password} WHERE id = #{id}
+	</update>
+	
+	<select id="selectUsers" resultType="map">
+		SELECT a.id,a.user_name userName,c.role_name roleName FROM tbl_user a LEFT JOIN tbl_map_user_role b ON a.id = b.user_id LEFT JOIN tbl_role c ON  b.role_id = c.id
+	</select>
+	
 	<insert id="insertOneUser" parameterType="cn.zhang.jie.beans.User" useGeneratedKeys="true" keyProperty="id">
 		insert into tbl_user(user_name,password,create_time) values(#{userName},#{password},#{createTime})
 	</insert>
@@ -28,7 +36,42 @@
 	</select>
 	
 	<select id="getAuthNamesByUsername" parameterType="string" resultType="string">
-		SELECT c.auth_name FROM tbl_user a,tbl_role b,tbl_auth c,tbl_map_user_role d,tbl_map_role_auth e
-		WHERE a.user_name = #{userName} AND a.id = d.user_id AND d.role_id = b.id AND b.id = e.role_id AND e.auth_id = c.id
+		SELECT DISTINCT(c.id),c.auth_name,parent_id,auth_url FROM tbl_user a,tbl_role b,tbl_auth c,tbl_map_user_role d,tbl_map_role_auth e
+		WHERE a.user_name = #{userName} AND a.id = d.user_id AND d.role_id = b.id AND b.id = e.role_id AND e.auth_id = c.id 
 	</select>
+	
+	
+	<select id="getUserAuthInfo" parameterType="string" resultType="map">
+		SELECT DISTINCT(c.id),c.auth_name,parent_id,auth_url FROM tbl_user a,tbl_role b,tbl_auth c,tbl_map_user_role d,tbl_map_role_auth e
+		WHERE a.user_name = #{userName} AND a.id = d.user_id AND d.role_id = b.id AND b.id = e.role_id AND e.auth_id = c.id	ORDER BY c.parent_id,c.auth_order
+	</select>
+	
+	<select id="getAllAuths" resultType="map">
+		SELECT a.id,a.auth_name authName, a.parent_id parentId,a.auth_url authUrl,a.auth_order authOrder,a.auth_type authType,b.auth_name parentAuthName 
+		FROM tbl_auth a LEFT JOIN tbl_auth b ON a.parent_id = b.id ORDER BY a.parent_id,a.auth_order 
+	</select>
+	
+	<select id="getAllRoles" resultType="map">
+		SELECT id, role_name roleName FROM tbl_role
+	</select>
+	
+	<select id="getAuthsForOneRoleByTree" resultType="map" parameterType="string">
+		SELECT DISTINCT(c.id),c.auth_name,parent_id,auth_url FROM tbl_auth c,tbl_map_role_auth e 
+ 		WHERE  e.auth_id = c.id 
+ 		<if test="roleId != null">
+ 			AND e.role_id = #{roleId} 
+ 		</if>
+ 		  ORDER BY c.parent_id,c.auth_order	
+	</select>
+	
+	<delete id="deleteMapRoleAuthByAuthIds" parameterType="string">
+		DELETE FROM tbl_map_role_auth WHERE role_id = #{roleId}
+	</delete>
+	
+	<insert id="insertMultiAuthForOneRole">
+		insert into tbl_map_role_auth (role_id,auth_id) values
+		<foreach collection="authIds" item="authId" separator=",">
+			(#{roleId},#{authId})
+		</foreach>
+	</insert>
 </mapper>
