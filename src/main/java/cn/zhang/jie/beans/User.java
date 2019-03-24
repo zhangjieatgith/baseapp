@@ -15,6 +15,7 @@ public class User implements Serializable{
 	private Set<String> roles;
 	private Set<String> auths;
 	
+	//加上一行注释
 	
 	public User() {
 		super();
